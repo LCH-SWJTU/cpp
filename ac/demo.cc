@@ -9,4 +9,5 @@ int main () {
         t.add(d);
     }
     t.disp();
+    std::cout<<t.inTree("jacklove")<<std::endl;
 }
