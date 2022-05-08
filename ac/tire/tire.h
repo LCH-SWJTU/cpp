@@ -9,7 +9,6 @@ struct treeNode {
 };
 class tireTree{
     private:
-    /* data */
     std::shared_ptr<treeNode>root;
     public:
     tireTree();
