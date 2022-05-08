@@ -1,40 +1,37 @@
+#include"tire.h"
+#include<queue>
 #include<iostream>
-#include<vector>
-struct treeNode {
-    bool isEnd;
-    std::shared_ptr<treeNode> child[26];
-    int value;
-};
 
-class tireTree{
-    private:
-    /* data */
-    std::shared_ptr<treeNode>root;
-    public:
-    tireTree();
-    ~tireTree();
-    void disp();
-    bool add(const std::string&str, int val);
-    std::shared_ptr<treeNode> find(std::string);
-    bool inTree(const std::string&str);
-    std::shared_ptr<treeNode> findByPrefix(const std::string&prefix);
-    std::shared_ptr<treeNode> getRoot();
-};
 tireTree::tireTree(){
     root = std::make_shared<treeNode>();
     root->isEnd = false;
-    root->value = -1;
+    root->key = '#';
+    root->parent = nullptr;
 }
 
 tireTree::~tireTree(){
 
 }
 void tireTree::disp() {
-    std::cout<<root->value<<std::endl;
+    // BFS
+    std::queue<std::shared_ptr<treeNode>>mq;
+    mq.push(this->root);
+    while (!mq.empty()) {
+        int size = mq.size();
+        for (int i = 0;i < size;i++) {
+            auto node = mq.front();
+            mq.pop();
+            if (node != nullptr) {
+                std::cout<<node->key<<"|";
+                for (auto &a:node->child)mq.push(a);   
+            }
+        }
+        std::cout<<std::endl;
+    }
 }
 
-bool tireTree::add(const std::string&str, int val) {
-    std::shared_ptr<treeNode>pos = root;
+bool tireTree::add(const std::string&str) {
+    auto pos = root;
     for (auto &s:str) {
         int idx = int(s) - int('a');
         if (idx < 0 || idx > 26) {
@@ -43,11 +40,42 @@ bool tireTree::add(const std::string&str, int val) {
         if (pos->child[idx] == nullptr) {
             pos->child[idx] = std::make_shared<treeNode>();
             pos->child[idx]->isEnd = false;
-            pos->child[idx]->value = -1;
+            pos->child[idx]->key = s;
+            pos->child[idx]->parent = pos;
         }
         pos = pos->child[idx];
     }
     pos->isEnd = true;
-    pos->value = val;
     return true;
+}
+
+std::shared_ptr<treeNode> tireTree::findByPrefix(const std::string&str) {
+    auto pos = root;
+    for (auto &s:str) {
+        int idx = int(s) - int('a');
+        if (idx < 0 || idx > 26) {
+            return nullptr;
+        }
+        if (pos->child[idx] == nullptr) {
+            return nullptr;
+        }
+        pos = pos->child[idx];
+    }
+    return pos;
+}
+
+std::shared_ptr<treeNode> tireTree::find(const std::string&str) {
+    auto node = this->findByPrefix(str);
+    if (node == nullptr || !node->isEnd){
+        return nullptr;
+    }
+    return node;
+}
+
+bool tireTree::inTree(const std::string&str) {
+    return this->find(str) != nullptr;
+}
+
+std::shared_ptr<treeNode> tireTree::getRoot() {
+    return this->root;
 }
