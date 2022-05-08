@@ -1,13 +1,13 @@
 #include<iostream>
 #include<vector>
-#include"tire/tire.cc"
+#include"tire/tire.h"
+// #include"automaton/automaton.h"
+using namespace std;
 
 int main () {
     tireTree t;
     std::vector<std::string>data{"adc", "rng", "uzi", "theshy", "jacklove"};
-    for (auto &d:data) {
-        t.add(d);
-    }
     t.disp();
-    std::cout<<t.inTree("jacklove")<<std::endl;
+    // automaton ac(data);
+    // ac.getTree().disp();
 }

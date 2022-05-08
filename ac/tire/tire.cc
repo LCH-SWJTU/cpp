@@ -1,31 +1,6 @@
-#include<iostream>
-#include<vector>
+#include"tire.h"
 #include<queue>
-struct treeNode {
-    bool isEnd;
-    std::shared_ptr<treeNode> child[26];
-    char key;
-};
-
-class tireTree{
-    private:
-    /* data */
-    std::shared_ptr<treeNode>root;
-    public:
-    tireTree();
-    ~tireTree();
-    void disp();
-    bool add(const std::string&str);
-    std::shared_ptr<treeNode> find(const std::string&str);
-    bool inTree(const std::string&str);
-    std::shared_ptr<treeNode> findByPrefix(const std::string&prefix);
-    std::shared_ptr<treeNode> getRoot();
-};
-tireTree::tireTree(){
-    root = std::make_shared<treeNode>();
-    root->isEnd = false;
-    root->key = '#';
-}
+#include<iostream>
 
 tireTree::~tireTree(){
 
@@ -59,6 +34,7 @@ bool tireTree::add(const std::string&str) {
             pos->child[idx] = std::make_shared<treeNode>();
             pos->child[idx]->isEnd = false;
             pos->child[idx]->key = s;
+            pos->child[idx]->parent = pos;
         }
         pos = pos->child[idx];
     }
