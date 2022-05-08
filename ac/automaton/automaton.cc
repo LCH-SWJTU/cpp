@@ -12,10 +12,10 @@ automaton::automaton(const std::vector<std::string>& dict) {
     for (auto &s:dict) {
         tree.add(s);
     }
-
     std::queue<std::shared_ptr<treeNode>>mq;
     auto root = tree.getRoot();
-    fail[root] = root;
+    auto preRoot = std::make_shared<treeNode>(); // 虚拟节点，root的fail
+    fail[root] = preRoot;
     mq.push(root);
     while(!mq.empty()) {
         auto pos = mq.front();
@@ -23,23 +23,16 @@ automaton::automaton(const std::vector<std::string>& dict) {
         for (int i = 0;i < 26;i++) {
             auto ch = pos->child[i];
             if (ch == nullptr) continue;
-            if (fail[pos] == root) {
-                fail[ch] = root; //第一层fail都指向root
-            } else {
-                auto p = fail[pos];
-                bool sign = false;
-                while (p != root) {
-                    if (p->child[i] != nullptr) {
-                        sign = true;
-                        break;
-                    }
-                    p = fail[p];
-                }
-                if (sign) {
+            auto p = fail[pos];
+            while (p != preRoot) {
+                if (p->child[i] != nullptr) {
                     fail[ch] = p->child[i];
-                } else {
-                    fail[ch] = root;
+                    break;
                 }
+                p = fail[p];
+            }
+            if (p == preRoot) {
+                fail[ch] = root;
             }
             mq.push(ch);
         }

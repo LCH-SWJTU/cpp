@@ -1,6 +1,5 @@
 #ifndef _AUTOMATON_H
 #define _AUTOMATON_H
-
 #include<vector>
 #include<unordered_map>
 #include"../tire/tire.h"
