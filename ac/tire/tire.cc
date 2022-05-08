@@ -2,6 +2,13 @@
 #include<queue>
 #include<iostream>
 
+tireTree::tireTree(){
+    root = std::make_shared<treeNode>();
+    root->isEnd = false;
+    root->key = '#';
+    root->parent = nullptr;
+}
+
 tireTree::~tireTree(){
 
 }
@@ -67,4 +74,8 @@ std::shared_ptr<treeNode> tireTree::find(const std::string&str) {
 
 bool tireTree::inTree(const std::string&str) {
     return this->find(str) != nullptr;
+}
+
+std::shared_ptr<treeNode> tireTree::getRoot() {
+    return this->root;
 }
