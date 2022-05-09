@@ -2,12 +2,6 @@
 #define _TIRE_H
 #include<vector>
 #include"node.h"
-// struct treeNode {
-//     bool isEnd;
-//     std::shared_ptr<treeNode>child[26];
-//     char key;
-//     std::shared_ptr<treeNode>parent;
-// };
 class tireTree{
     private:
     std::shared_ptr<treeNode>root;

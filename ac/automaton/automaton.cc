@@ -39,6 +39,33 @@ automaton::automaton(const std::vector<std::string>& dict) {
     }
 }
 
+std::vector<std::string> automaton::find(const std::string& source){
+    std::vector<std::string>res;
+    auto root = tree.getRoot();
+    auto pos = root;
+    int i = 0;
+    while (i < source.length()) {
+        int idx = source[i] - 'a';
+        if (pos->child[idx]) {
+            if (pos->child[idx]->isEnd) {
+                res.push_back(pos->child[idx]->key);
+                pos = root;
+                i++;
+            } else {
+                pos = pos->child[idx];
+                i++;
+            }
+        } else {
+            if (pos == root) {
+                i++;
+            } else {
+                pos = fail[pos];
+            }
+        }
+    }
+    return res;
+}
+
 tireTree automaton::getTree() {
     return this->tree;
 }

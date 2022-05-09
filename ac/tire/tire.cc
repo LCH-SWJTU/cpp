@@ -39,7 +39,7 @@ bool tireTree::add(const std::string&str) {
         if (idx < 0 || idx > 26) {
             return false;
         }
-        prefix += s;
+        prefix.push_back(s);
         if (pos->child[idx] == nullptr) {
             pos->child[idx] = std::make_shared<treeNode>();
             pos->child[idx]->isEnd = false;
