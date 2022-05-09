@@ -5,8 +5,9 @@
 tireTree::tireTree(){
     root = std::make_shared<treeNode>();
     root->isEnd = false;
-    root->key = '#';
+    root->ch = '#';
     root->parent = nullptr;
+    root->key = "";
 }
 
 tireTree::~tireTree(){
@@ -22,7 +23,7 @@ void tireTree::disp() {
             auto node = mq.front();
             mq.pop();
             if (node != nullptr) {
-                std::cout<<node->key<<"|";
+                std::cout<<node->ch<<"|";
                 for (auto &a:node->child)mq.push(a);   
             }
         }
@@ -32,16 +33,19 @@ void tireTree::disp() {
 
 bool tireTree::add(const std::string&str) {
     auto pos = root;
+    std::string prefix;
     for (auto &s:str) {
         int idx = int(s) - int('a');
         if (idx < 0 || idx > 26) {
             return false;
         }
+        prefix += s;
         if (pos->child[idx] == nullptr) {
             pos->child[idx] = std::make_shared<treeNode>();
             pos->child[idx]->isEnd = false;
-            pos->child[idx]->key = s;
+            pos->child[idx]->ch = s;
             pos->child[idx]->parent = pos;
+            pos->child[idx]->key = prefix;
         }
         pos = pos->child[idx];
     }

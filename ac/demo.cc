@@ -2,7 +2,6 @@
 #include<vector>
 // #include"tire/tire.h"
 #include"automaton/automaton.h"
-using namespace std;
 
 int main () {
     tireTree t;
@@ -11,7 +10,7 @@ int main () {
     ac.getTree().disp();
     auto mp = ac.getFail();
     for (auto p:mp) {
-        cout<<p.first<<"\t"<<p.second<<"\t"<<p.first->key<<"\t"<<p.second->key<<endl;
+        std::cout<<p.first<<"\t"<<p.second<<"\t"<<p.first->key<<"\t"<<p.second->key<<std::endl;
     }
-    cout<<mp.size()<<endl;
+    std::cout<<mp.size()<<std::endl;
 }
