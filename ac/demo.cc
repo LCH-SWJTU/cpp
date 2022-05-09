@@ -5,12 +5,10 @@
 
 int main () {
     tireTree t;
-    std::vector<std::string>data{"abc", "abe", "cdcd", "ccac", "bbac"};
+    std::vector<std::string>data{"abc", "abe", "cdcd", "ccac", "bbac", "ab", "ef"};
     automaton ac(data);
-    ac.getTree().disp();
-    auto mp = ac.getFail();
-    for (auto p:mp) {
-        std::cout<<p.first<<"\t"<<p.second<<"\t"<<p.first->key<<"\t"<<p.second->key<<std::endl;
+    auto res = ac.find("rabcdef gcdc dd");
+    for (auto r:res) {
+        std::cout<<r<<std::endl;
     }
-    std::cout<<mp.size()<<std::endl;
 }
