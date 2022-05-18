@@ -54,12 +54,10 @@ std::vector<std::string> automaton::find(const std::string& source){
             }
             pos = pos->child[idx];
             i++;
+        } else if (pos == root){
+            i++;
         } else {
-            if (pos == root) {
-                i++;
-            } else {
-                pos = fail[pos];
-            }
+            pos = fail[pos];
         }
     }
     return res;
