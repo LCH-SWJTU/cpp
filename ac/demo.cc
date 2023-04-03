@@ -8,6 +8,7 @@ int main () {
     std::vector<std::string>data{"abc", "abe", "cdcd", "ccac", "bbac", "ab", "ef"};
     automaton ac(data);
     auto res = ac.find("rabcdef gcdc dd cdcd dddd");
+
     for (auto r:res) {
         std::cout<<r<<std::endl;
     }
