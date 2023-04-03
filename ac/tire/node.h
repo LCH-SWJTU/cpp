@@ -1,6 +1,7 @@
 #ifndef _UTIL_H
 #define _UTIL_H
 #include<iostream>
+#include<memory>
 struct treeNode {
     bool isEnd;
     std::shared_ptr<treeNode>child[26];

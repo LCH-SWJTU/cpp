@@ -1,6 +1,7 @@
 #ifndef _AUTOMATON_H
 #define _AUTOMATON_H
 #include<vector>
+#include <memory>
 #include<unordered_map>
 #include"../tire/tire.h"
 class automaton {
