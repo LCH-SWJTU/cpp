@@ -1,7 +1,6 @@
 #ifndef _TIRE_H
 #define _TIRE_H
 #include<vector>
-#include <memory>
 #include"node.h"
 class tireTree{
     private:
