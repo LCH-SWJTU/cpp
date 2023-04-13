@@ -1,6 +1,7 @@
 #include<iostream>
 #include<math.h>
 #include<unistd.h>
+#include <cstring>
 int main() {
     float A = 0, B = 0;
     float i, j;
