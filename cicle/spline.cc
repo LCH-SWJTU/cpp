@@ -61,7 +61,7 @@ int main() {
     std::vector<point>sspline;
     getSplinePoint(sspline, res);
     for (auto &r : res) {
-        cout << r.x << ", " << r.y << endl;
+    	cout << r.x << ", " << r.y << endl;
     } 
-    return 0;
+	return 0;
 }
