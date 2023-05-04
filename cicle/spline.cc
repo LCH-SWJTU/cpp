@@ -1,14 +1,12 @@
 #include<iostream>
 #include<vector>
-using namespace std;
-
 typedef struct 
 {
     double x;
     double y;
 }point;
 
-double nb(const vector<double>&uu, double u, int i, int p) {
+double nb(const std::vector<double>&uu, double u, int i, int p) {
     if (p == 0) {
         if (u >= uu[i] && u < uu[i+1]) {
             return 1;
@@ -32,7 +30,7 @@ double nb(const vector<double>&uu, double u, int i, int p) {
     return r1 + r2;
 }
 
-point ci(const vector<double>&uu, const vector<point>&pos, double u, int i, int p) {
+point ci(const std::vector<double>&uu, const std::vector<point>&pos, double u, int i, int p) {
     point res = {0, 0};
     for (int j = i-p;j <= i; j ++) {
         double tmp = nb(uu, u, j, p);
@@ -44,9 +42,14 @@ point ci(const vector<double>&uu, const vector<point>&pos, double u, int i, int 
 
 static void getSplinePoint(const std::vector<point>& splinePointList, std::vector<point>& res) {
 	int p = 3;
-	std::vector<double>uu{ 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 7, 7, 7 };
+	// std::vector<double>uu{ 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 7, 7, 7 };
 	int n = splinePointList.size() - 1;
-	for (int i = p; i <= n + p - 1; i++) {
+    std::vector<double>uu;
+    for (int i = 0; i <= p; i ++) uu.push_back(0);
+    for (int i = 1; i <= n - 1; i ++) uu.push_back(i);
+    for (int i = 0; i <= p; i ++) uu.push_back(n);
+    // for (auto a : uu) std::cout << a << std::endl;
+	for (int i = p; i <= n + p - 1; i ++) {
 		for (double u = uu[i]; u < uu[i + 1]; u += 0.5) {
 			auto currPoint = ci(uu, splinePointList, u, i, p);
 			res.push_back(currPoint);
@@ -54,13 +57,12 @@ static void getSplinePoint(const std::vector<point>& splinePointList, std::vecto
 	}
 }
 
-
 int main() {
     std::vector<point>pos{ {100, 100}, {200, 500}, {300, 100}, {400, 100}, {500, 400}, {600, 300}, {700, 100}, {800, 200}};
     std::vector<point>res;
     getSplinePoint(pos, res);
     for (auto &r : res) {
-    	cout << r.x << ", " << r.y << endl;
+    	std::cout << r.x << ", " << r.y << std::endl;
     } 
 	return 0;
 }
