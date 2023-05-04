@@ -42,20 +42,26 @@ point ci(const vector<double>&uu, const vector<point>&pos, double u, int i, int 
     return res;
 }
 
+static void getSplinePoint(const std::vector<point>& splinePointList, std::vector<point>& res) {
+	int p = 3;
+	std::vector<point>pos{ {100, 100}, {200, 500}, {300, 100}, {400, 100}, {500, 400}, {600, 300}, {700, 100}, {800, 200} };
+	std::vector<double>uu{ 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 7, 7, 7 };
+	int n = pos.size() - 1;
+	for (int i = p; i <= n + p - 1; i++) {
+		for (double u = uu[i]; u < uu[i + 1]; u += 0.5) {
+			auto currPoint = ci(uu, splinePointList, u, i, p);
+			res.push_back(currPoint);
+		}
+	}
+}
+
 
 int main() {
-    vector<point>pos{{1, 1}, {2, 5}, {3, -1}, {4, 10}, {5, -4}, {6, 3}, {7, 1}, {8, 0}};
-    vector<double>uu{0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 7, 7, 7};
-    int p = 3;
-    int n = pos.size() - 1;
-    
-    for(int i = p; i <= n+p-1;i++) {
-        for(double u = uu[i]; u < uu[i+1]; u += 0.1) {
-            auto r = ci(uu, pos, u, i, p);
-            cout << r.x << ", ";
-        }
-        // cout << endl;
-    }
-    cout << endl;
+    std::vector<point>res;
+    std::vector<point>sspline;
+    getSplinePoint(sspline, res);
+    for (auto &r : res) {
+        cout << r.x << ", " << r.y << endl;
+    } 
     return 0;
 }
