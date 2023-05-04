@@ -40,21 +40,22 @@ point ci(const std::vector<double>&uu, const std::vector<point>&pos, double u, i
     return res;
 }
 
-static void getSplinePoint(const std::vector<point>& splinePointList, std::vector<point>& res) {
+void getSplinePoint(const std::vector<point>& splinePointList, std::vector<point>& res) {
 	int p = 3;
 	// std::vector<double>uu{ 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 7, 7, 7 };
 	int n = splinePointList.size() - 1;
+    if (n < p) return;
     std::vector<double>uu;
     for (int i = 0; i <= p; i ++) uu.push_back(0);
-    for (int i = 1; i <= n - 1; i ++) uu.push_back(i);
-    for (int i = 0; i <= p; i ++) uu.push_back(n);
+    for (int i = 1; i <= n - p; i ++) uu.push_back(i);
+    for (int i = 0; i <= p; i ++) uu.push_back(n - p + 1);
     // for (auto a : uu) std::cout << a << std::endl;
-	for (int i = p; i <= n + p - 1; i ++) {
-		for (double u = uu[i]; u < uu[i + 1]; u += 0.5) {
-			auto currPoint = ci(uu, splinePointList, u, i, p);
-			res.push_back(currPoint);
-		}
-	}
+    for (int i = p; i <= n ; i ++) {
+        for (double u = uu[i]; u < uu[i + 1]; u += 0.2) {
+            auto currPoint = ci(uu, splinePointList, u, i, p);
+            res.push_back(currPoint);
+        }
+    }
 }
 
 int main() {
