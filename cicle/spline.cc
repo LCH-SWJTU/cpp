@@ -47,7 +47,7 @@ void getSplinePoint(const std::vector<point>& splinePointList, int p, std::vecto
     for (int i = 0; i <= p; i ++) uu.push_back(0);
     for (int i = 1; i <= n - p; i ++) uu.push_back(i);
     for (int i = 0; i <= p; i ++) uu.push_back(n - p + 1);
-    for (int i = p; i <= n ; i ++) {
+    for (int i = p; i <= n + p - 1 ; i ++) {
         for (double u = uu[i]; u < uu[i + 1]; u += 0.2) {
             auto currPoint = ci(uu, splinePointList, u, i, p);
             res.push_back(currPoint);
